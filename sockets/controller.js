@@ -1,4 +1,4 @@
-const { Socket } = require("socket.io");
+let { Socket } = require("socket.io");
 const { comprobarJWT } = require("../helpers");
 const { ChatMensajes } = require("../models");
 
@@ -26,6 +26,11 @@ const socketController =async(socket = new Socket(), io)=>{
         io.emit('usuarios-activos', chatMensajes.usuariosArr );
     })
     
+    socket.on('enviar-mensaje', ({uid, mensaje})=>{
+        chatMensajes.enviarMensaje(usuario.id, usuario.nombre, mensaje);
+        
+        io.emit('recibir-mensajes', chatMensajes.ultimos10);
+    })
 
 }
 
