@@ -11,6 +11,9 @@ const ulUsuarios = document.querySelector('#ulUsuarios');
 const ulMensajes = document.querySelector('#ulMensajes');      
 const btnSalir =   document.querySelector('#btnSalir');      
 
+var url = (window.location.hostname.includes('localhost'))
+        ? 'http://localhost:8080/api/auth/'
+        : 'https://sockets-con-autenticacion-production.up.railway.app/api/auth/'
 
 
 const validarJWT = async ()=>{
@@ -21,7 +24,7 @@ const validarJWT = async ()=>{
         window.location = 'index.html';
         throw new Error('No hay token en el servidor');
     }
-    const resp = await fetch( 'http://localhost:8080/api/auth/', {
+    const resp = await fetch( url, {
         headers:{'x-token':token}
     });
 

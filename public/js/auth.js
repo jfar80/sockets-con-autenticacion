@@ -1,8 +1,10 @@
+
+
 const miFormulario = document.querySelector('form');
 
 var url = (window.location.hostname.includes('localhost'))
         ? 'http://localhost:8080/api/auth/'
-        : process.env.ENVIRONMENT
+        : 'https://sockets-con-autenticacion-production.up.railway.app/api/auth/'
 
 miFormulario.addEventListener('submit', event=>{
     event.preventDefault();
