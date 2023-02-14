@@ -1,6 +1,8 @@
 const miFormulario = document.querySelector('form');
 
-
+var url = (window.location.hostname.includes('localhost'))
+        ? 'http://localhost:8080/api/auth/'
+        : process.env.ENVIRONMENT
 
 miFormulario.addEventListener('submit', event=>{
     event.preventDefault();
@@ -10,7 +12,7 @@ miFormulario.addEventListener('submit', event=>{
             formData[el.name]= el.value
     }
 
-    fetch('http://localhost:8080/api/auth/login', {
+    fetch( url + 'login', {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: { 'Content-Type': 'application/json'}
@@ -28,12 +30,7 @@ miFormulario.addEventListener('submit', event=>{
         console.log(err)
     })
 
-
-
-
-
 });
-
     
         function handleCredentialResponse(response) {
            
@@ -41,7 +38,7 @@ miFormulario.addEventListener('submit', event=>{
            // console.log('id_token', response.credential);
            const body ={ id_token: response.credential};
 
-           fetch ('http://localhost:8080/api/auth/google', {
+           fetch (url + 'google', {
                  method: 'POST',
                  headers: {
                     'Content-Type': 'application/json'
